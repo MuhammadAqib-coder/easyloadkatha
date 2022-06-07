@@ -54,7 +54,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.24,
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(10)),
+                  color: Colors.grey, borderRadius: BorderRadius.circular(Dimension.height10)),
               child: Column(
                 children: [
                   Row(children: [
@@ -232,8 +232,8 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: Dimension.height10,
             ),
             Expanded(
                 child: StreamBuilder<QuerySnapshot>(
@@ -257,12 +257,12 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                       return Card(
                         color: Colors.grey,
                         shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(Dimension.height10)),
                         child: ListTile(
                           iconColor: Colors.black,
                           textColor: Colors.black,
                           shape: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(Dimension.height10)),
                           title: Text(snapshot.data!.docs[index]['price']),
                           subtitle: Text(snapshot.data!.docs[index]['date']),
                           trailing: IconButton(
@@ -284,11 +284,11 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                 );
               },
             )),
-            const SizedBox(
-              height: 5.0,
+             SizedBox(
+              height: Dimension.height6,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(Dimension.height8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -299,8 +299,8 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                           children: [
                         TextSpan(
                             text: "$advance",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold))
+                            style:  TextStyle(
+                                fontSize: Dimension.height20, fontWeight: FontWeight.bold))
                       ])),
                   RichText(
                       text: TextSpan(
@@ -309,8 +309,8 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                           children: [
                         TextSpan(
                             text: "$total",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold))
+                            style: TextStyle(
+                                fontSize: Dimension.height20, fontWeight: FontWeight.bold))
                       ]))
                 ],
               ),

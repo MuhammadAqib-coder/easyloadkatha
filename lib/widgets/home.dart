@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../services/dimension.dart';
 import '../services/emial_password_authentication.dart';
 import '../services/google_authentication.dart';
 import 'text_field.dart';
@@ -12,7 +13,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 80),
+      padding:  EdgeInsets.only(top: Dimension.height80),
       child: ListView(
         children: [
           Field(
@@ -41,7 +42,7 @@ class Home extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   onPrimary: Colors.black,
-                  minimumSize: const Size(double.infinity, 50)),
+                  minimumSize:  Size(double.infinity, Dimension.height50)),
               icon: const FaIcon(
                 FontAwesomeIcons.google,
                 color: Colors.red,

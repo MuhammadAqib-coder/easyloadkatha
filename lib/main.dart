@@ -12,9 +12,11 @@ import 'widgets/logged_in_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //initialize as a firebase app
   await Firebase.initializeApp();
-  FirebaseFirestore.instance.settings =
-      const Settings(persistenceEnabled: false);
+  //store data locally when offline by default its true
+  // FirebaseFirestore.instance.settings =
+  //     const Settings(persistenceEnabled: false);
   runApp(const App());
 }
 

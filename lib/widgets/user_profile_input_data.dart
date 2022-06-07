@@ -30,7 +30,7 @@ class UserProfile extends StatelessWidget {
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                     EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
                 child: TextFormField(
                   controller: _nameControler,
                   decoration: InputDecoration(
@@ -38,16 +38,16 @@ class UserProfile extends StatelessWidget {
                       filled: true,
                       hintText: "enter name",
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(Dimension.height10),
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: Colors.black, width: Dimension.width2)),
                       // errorBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(10),
                       //     borderSide: BorderSide(color: Colors.black, width: 2)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(Dimension.height10),
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: Colors.black, width: Dimension.width2)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimension.height10),
@@ -63,7 +63,7 @@ class UserProfile extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                     EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
                 child: TextFormField(
                   controller: _descriptionControler,
                   decoration: InputDecoration(
@@ -71,16 +71,16 @@ class UserProfile extends StatelessWidget {
                       filled: true,
                       hintText: "enter description",
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(Dimension.height10),
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: Colors.black, width: Dimension.width2)),
                       // errorBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(10),
                       //     borderSide: BorderSide(color: Colors.black, width: 2)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(Dimension.height10),
                           borderSide:
-                              BorderSide(color: Colors.black, width: 2)),
+                              BorderSide(color: Colors.black, width: Dimension.width2)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimension.height10),

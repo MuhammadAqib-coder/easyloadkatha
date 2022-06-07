@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:practice_of_firebase/services/dimension.dart';
 import 'package:practice_of_firebase/widgets/user_profile_input_data.dart';
 
 import '../services/search_data.dart';
@@ -20,6 +21,8 @@ class _LoggedInPageState extends State<LoggedInPage> {
 
   @override
   Widget build(BuildContext context) {
+    //640print(Dimension.screenHeight);
+   //360 print(Dimension.screenWidth);
     return Scaffold(
       appBar: AppBar(
           //iconTheme: const IconThemeData(color: Colors.black),
@@ -50,7 +53,8 @@ class _LoggedInPageState extends State<LoggedInPage> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Somethimg is wrong");
+            //print(snapshot.error);
+            return Center(child: Text(snapshot.error.toString()));
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -64,17 +68,17 @@ class _LoggedInPageState extends State<LoggedInPage> {
                 color: Colors.grey,
                 //color: const Color.fromARGB(255, 85, 201, 247),
                 shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
+                    borderRadius: BorderRadius.circular(Dimension.height10)),
                 child: ListTile(
                   textColor: Colors.black,
                   iconColor: Colors.black,
                   shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
+                      borderRadius: BorderRadius.circular(Dimension.height10)),
                   leading: const Icon(Icons.book_online_sharp),
                   title: Text(
                     snapshot.data!.docs[index]['name'],
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                    style:  TextStyle(
+                        fontSize: Dimension.height20, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(snapshot.data!.docs[index]['description']),
                   trailing: IconButton(

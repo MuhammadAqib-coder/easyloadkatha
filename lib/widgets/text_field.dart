@@ -29,7 +29,7 @@ class _FieldState extends State<Field> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding:  EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
               controller: _emailControler,
@@ -38,14 +38,14 @@ class _FieldState extends State<Field> {
                   filled: true,
                   hintText: "enter email",
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black, width: 2)),
+                      borderRadius: BorderRadius.circular(Dimension.height10),
+                      borderSide: BorderSide(color: Colors.black, width: Dimension.width2)),
                   // errorBorder: OutlineInputBorder(
                   //     borderRadius: BorderRadius.circular(10),
                   //     borderSide: BorderSide(color: Colors.black, width: 2)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black, width: 2)),
+                      borderRadius: BorderRadius.circular(Dimension.height10),
+                      borderSide: BorderSide(color: Colors.black, width: Dimension.width2)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(Dimension.height10),
                       borderSide: BorderSide(
@@ -59,7 +59,7 @@ class _FieldState extends State<Field> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding:  EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
             child: TextFormField(
               obscureText: _textVisibility,
               autocorrect: false,
@@ -81,11 +81,11 @@ class _FieldState extends State<Field> {
                   filled: true,
                   //labelStyle: const TextStyle(color: Colors.black),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black, width: 2)),
+                      borderRadius: BorderRadius.circular(Dimension.height10),
+                      borderSide: BorderSide(color: Colors.black, width: Dimension.width2)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black, width: 2)),
+                      borderRadius: BorderRadius.circular(Dimension.height10),
+                      borderSide: BorderSide(color: Colors.black, width: Dimension.width2)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(Dimension.height10),
                       borderSide: BorderSide(
@@ -99,8 +99,8 @@ class _FieldState extends State<Field> {
               },
             ),
           ),
-          const SizedBox(
-            height: 8,
+           SizedBox(
+            height: Dimension.height8,
           ),
           Button(
               child: const Text("forget password"),
@@ -110,8 +110,8 @@ class _FieldState extends State<Field> {
                       _emailControler.text, _passwordControler.text, "reset");
                 }
               }),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: Dimension.height20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -134,8 +134,8 @@ class _FieldState extends State<Field> {
                   })
             ],
           ),
-          const SizedBox(
-            height: 30,
+           SizedBox(
+            height: Dimension.height30,
           ),
 
           //TextButton.icon(onPressed: (){}, icon: const Icon(Icons.g_mobiledata), label: const Text("signIn with google")),
