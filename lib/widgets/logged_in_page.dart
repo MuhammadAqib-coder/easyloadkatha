@@ -18,11 +18,19 @@ class LoggedInPage extends StatefulWidget {
 class _LoggedInPageState extends State<LoggedInPage> {
   // final DocumentReference reference =
   //     FirebaseFirestore.instance.collection('easyloadKatha').doc('userProfile');
+  late final id;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    id = FirebaseAuth.instance.currentUser!.uid;
+  }
 
   @override
   Widget build(BuildContext context) {
     //640print(Dimension.screenHeight);
-   //360 print(Dimension.screenWidth);
+    //360 print(Dimension.screenWidth);
     return Scaffold(
       appBar: AppBar(
           //iconTheme: const IconThemeData(color: Colors.black),
@@ -48,7 +56,7 @@ class _LoggedInPageState extends State<LoggedInPage> {
           ]),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('users')
+            .collection(id)
             .orderBy('name')
             .snapshots(),
         builder: (context, snapshot) {
@@ -77,8 +85,9 @@ class _LoggedInPageState extends State<LoggedInPage> {
                   leading: const Icon(Icons.book_online_sharp),
                   title: Text(
                     snapshot.data!.docs[index]['name'],
-                    style:  TextStyle(
-                        fontSize: Dimension.height20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: Dimension.height20,
+                        fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(snapshot.data!.docs[index]['description']),
                   trailing: IconButton(

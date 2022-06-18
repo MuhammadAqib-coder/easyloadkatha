@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice_of_firebase/models/price_and_date_model.dart';
@@ -18,6 +19,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
   final _formKey = GlobalKey<FormState>();
   final _loadControler = TextEditingController();
   final _priceControler = TextEditingController();
+  late final collectionId;
   int advance = 0;
   int total = 0;
 
@@ -30,8 +32,9 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
     widget.id = widget.snapshot.id;
     advance = widget.snapshot['advance'];
     total = widget.snapshot['total'];
+    collectionId = FirebaseAuth.instance.currentUser!.uid;
     reference = FirebaseFirestore.instance
-        .collection('users/${widget.id}/${widget.snapshot['name']}');
+        .collection('$collectionId/${widget.id}/${widget.snapshot['name']}');
     setState(() {});
   }
 
@@ -54,47 +57,51 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.24,
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(Dimension.height10)),
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(Dimension.height10)),
               child: Column(
                 children: [
                   Row(children: [
                     Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        controller: _priceControler,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            // errorStyle: const TextStyle(fontSize: 0),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.height10),
-                                borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: Dimension.width2)),
-                            // errorBorder: OutlineInputBorder(
-                            //     borderRadius:
-                            //         BorderRadius.circular(Dimension.height10),
-                            //     borderSide: BorderSide(
-                            //         color: Colors.black,
-                            //         width: Dimension.width2)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.height10),
-                                borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: Dimension.width2)),
-                            fillColor: Colors.grey.withOpacity(0.5),
-                            filled: true,
-                            labelText: "price from customer",
-                            labelStyle: const TextStyle(
-                              color: Colors.black,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.height10),
-                                borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: Dimension.width2))),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.09,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: _priceControler,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              // errorStyle: const TextStyle(fontSize: 0),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimension.height10),
+                                  borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: Dimension.width2)),
+                              // errorBorder: OutlineInputBorder(
+                              //     borderRadius:
+                              //         BorderRadius.circular(Dimension.height10),
+                              //     borderSide: BorderSide(
+                              //         color: Colors.black,
+                              //         width: Dimension.width2)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimension.height10),
+                                  borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: Dimension.width2)),
+                              fillColor: Colors.grey.withOpacity(0.5),
+                              filled: true,
+                              labelText: "price from customer",
+                              labelStyle: const TextStyle(
+                                color: Colors.black,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimension.height10),
+                                  borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: Dimension.width2))),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -133,8 +140,14 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                               });
                         }
                       },
-                      style: ElevatedButton.styleFrom(primary: Colors.black),
-                      child: const Text("submit"),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          fixedSize:
+                              Size(Dimension.width75, Dimension.height35)),
+                      child: Text(
+                        "save",
+                        style: TextStyle(fontSize: Dimension.height16),
+                      ),
                     ),
                   ]),
                   SizedBox(
@@ -145,46 +158,50 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                       Expanded(
                         // height: MediaQuery.of(context).size.height * 0.1,
                         // width: MediaQuery.of(context).size.width * 0.7,
-                        child: TextField(
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "please enter price";
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                          keyboardType: TextInputType.number,
-                          controller: _loadControler,
-                          decoration: InputDecoration(
-                              //errorStyle: const TextStyle(fontSize: 0),
-                              fillColor: Colors.grey.withOpacity(0.5),
-                              filled: true,
-                              labelText: "load price",
-                              labelStyle: const TextStyle(color: Colors.black),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimension.height10),
-                                  borderSide: BorderSide(
-                                      color: Colors.black,
-                                      width: Dimension.width2)),
-                              // errorBorder: OutlineInputBorder(
-                              //     borderRadius:
-                              //         BorderRadius.circular(Dimension.height10),
-                              //     borderSide: BorderSide(
-                              //         color: Colors.black,
-                              //         width: Dimension.width2)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimension.height10),
-                                  borderSide: BorderSide(
-                                      color: Colors.black,
-                                      width: Dimension.width2)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.black,
-                                      width: Dimension.width2),
-                                  borderRadius: BorderRadius.circular(
-                                      Dimension.height10))),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.09,
+                          child: TextField(
+                            // validator: (value) {
+                            //   if (value!.isEmpty) {
+                            //     return "please enter price";
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
+                            keyboardType: TextInputType.number,
+                            controller: _loadControler,
+                            decoration: InputDecoration(
+                                //errorStyle: const TextStyle(fontSize: 0),
+                                fillColor: Colors.grey.withOpacity(0.5),
+                                filled: true,
+                                labelText: "load price",
+                                labelStyle:
+                                    const TextStyle(color: Colors.black),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimension.height10),
+                                    borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: Dimension.width2)),
+                                // errorBorder: OutlineInputBorder(
+                                //     borderRadius:
+                                //         BorderRadius.circular(Dimension.height10),
+                                //     borderSide: BorderSide(
+                                //         color: Colors.black,
+                                //         width: Dimension.width2)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimension.height10),
+                                    borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: Dimension.width2)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: Dimension.width2),
+                                    borderRadius: BorderRadius.circular(
+                                        Dimension.height10))),
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -225,8 +242,13 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.black, fixedSize: Size(65, 30)),
-                          child: const Text("save"))
+                              primary: Colors.black,
+                              fixedSize:
+                                  Size(Dimension.width75, Dimension.height35)),
+                          child: Text(
+                            "save",
+                            style: TextStyle(fontSize: Dimension.height16),
+                          ))
                     ],
                   )
                 ],
@@ -238,7 +260,8 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
             Expanded(
                 child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection('users/${widget.id}/${widget.snapshot['name']}')
+                  .collection(
+                      '$collectionId/${widget.id}/${widget.snapshot['name']}')
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -257,12 +280,14 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                       return Card(
                         color: Colors.grey,
                         shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Dimension.height10)),
+                            borderRadius:
+                                BorderRadius.circular(Dimension.height10)),
                         child: ListTile(
                           iconColor: Colors.black,
                           textColor: Colors.black,
                           shape: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Dimension.height10)),
+                              borderRadius:
+                                  BorderRadius.circular(Dimension.height10)),
                           title: Text(snapshot.data!.docs[index]['price']),
                           subtitle: Text(snapshot.data!.docs[index]['date']),
                           trailing: IconButton(
@@ -284,7 +309,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                 );
               },
             )),
-             SizedBox(
+            SizedBox(
               height: Dimension.height6,
             ),
             Padding(
@@ -299,8 +324,9 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                           children: [
                         TextSpan(
                             text: "$advance",
-                            style:  TextStyle(
-                                fontSize: Dimension.height20, fontWeight: FontWeight.bold))
+                            style: TextStyle(
+                                fontSize: Dimension.height20,
+                                fontWeight: FontWeight.bold))
                       ])),
                   RichText(
                       text: TextSpan(
@@ -310,7 +336,8 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                         TextSpan(
                             text: "$total",
                             style: TextStyle(
-                                fontSize: Dimension.height20, fontWeight: FontWeight.bold))
+                                fontSize: Dimension.height20,
+                                fontWeight: FontWeight.bold))
                       ]))
                 ],
               ),
@@ -324,7 +351,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
   @override
   void deactivate() {
     FirebaseFirestore.instance
-        .collection('users')
+        .collection(collectionId)
         .doc(widget.id)
         .update({'total': total, 'advance': advance});
     super.deactivate();
@@ -336,7 +363,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.paused:
         FirebaseFirestore.instance
-            .collection('users')
+            .collection(collectionId)
             .doc(widget.id)
             .update({'advance': advance, 'total': total});
         break;

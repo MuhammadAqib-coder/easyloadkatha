@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice_of_firebase/models/user_profile_data.dart';
 
@@ -14,7 +15,8 @@ class UserProfile extends StatelessWidget {
   final _descriptionControler = TextEditingController();
   // final DocumentReference reference =
   //     FirebaseFirestore.instance.doc('EasyloadKatha/userProfile');
-  CollectionReference user = FirebaseFirestore.instance.collection('users');
+  //CollectionReference user = FirebaseFirestore.instance.collection('users');
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,9 @@ class UserProfile extends StatelessWidget {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               Padding(
-                padding:
-                     EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimension.width20,
+                    vertical: Dimension.height10),
                 child: TextFormField(
                   controller: _nameControler,
                   decoration: InputDecoration(
@@ -38,16 +41,18 @@ class UserProfile extends StatelessWidget {
                       filled: true,
                       hintText: "enter name",
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Dimension.height10),
-                          borderSide:
-                              BorderSide(color: Colors.black, width: Dimension.width2)),
+                          borderRadius:
+                              BorderRadius.circular(Dimension.height10),
+                          borderSide: BorderSide(
+                              color: Colors.black, width: Dimension.width2)),
                       // errorBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(10),
                       //     borderSide: BorderSide(color: Colors.black, width: 2)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Dimension.height10),
-                          borderSide:
-                              BorderSide(color: Colors.black, width: Dimension.width2)),
+                          borderRadius:
+                              BorderRadius.circular(Dimension.height10),
+                          borderSide: BorderSide(
+                              color: Colors.black, width: Dimension.width2)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimension.height10),
@@ -62,8 +67,9 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding:
-                     EdgeInsets.symmetric(horizontal: Dimension.width20, vertical: Dimension.height10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimension.width20,
+                    vertical: Dimension.height10),
                 child: TextFormField(
                   controller: _descriptionControler,
                   decoration: InputDecoration(
@@ -71,16 +77,18 @@ class UserProfile extends StatelessWidget {
                       filled: true,
                       hintText: "enter description",
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Dimension.height10),
-                          borderSide:
-                              BorderSide(color: Colors.black, width: Dimension.width2)),
+                          borderRadius:
+                              BorderRadius.circular(Dimension.height10),
+                          borderSide: BorderSide(
+                              color: Colors.black, width: Dimension.width2)),
                       // errorBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(10),
                       //     borderSide: BorderSide(color: Colors.black, width: 2)),
                       focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Dimension.height10),
-                          borderSide:
-                              BorderSide(color: Colors.black, width: Dimension.width2)),
+                          borderRadius:
+                              BorderRadius.circular(Dimension.height10),
+                          borderSide: BorderSide(
+                              color: Colors.black, width: Dimension.width2)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimension.height10),
@@ -98,67 +106,105 @@ class UserProfile extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
-                    child: const Text("save"),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        var userProfile = UserProfileData(
-                            name: _nameControler.text,
-                            description: _descriptionControler.text,
-                            advance: 0,
-                            total: 0);
-                        var result = await checkUserName();
-                        if (result) {
-                          _showSnackBar(context, "user already exist");
-                        } else {
-                          user
-                              .add(userProfile.toMap())
-                              .then((value) =>
-                                  _showSnackBar(context, "User added"))
-                              .catchError(
-                                  (e) => _showSnackBar(context, e.toString()));
-                        }
-                        // CollectionReference reference =
-                        //     FirebaseFirestore.instance.collection('users');
-                        // QuerySnapshot querySnapshot = await reference.get();
-                        // final allData = querySnapshot.docs.map((doc) {
-                        //   return doc.data();
-                        // }).toList();
-                        // if (allData.contains(_nameControler.text)) {
-                        //   _showSnackBar(context, "user is already present");
-                        // }
-                        // StreamSubscription<DocumentSnapshot> subscription;
-                        // var reference = FirebaseFirestore.instance
-                        //     .collection('users')
-                        //     .doc();
-                        // subscription = reference.snapshots().listen((event) {
-                        //   if (event
-                        //       .data()!
-                        //       .containsValue(_nameControler.text)) {
-                        //     _showSnackBar(context, 'user already exist');
-                        //   } else {}
-                        // });
-
-                        _nameControler.clear();
-                        _descriptionControler.clear();
-
-                        // user
-                        //     .set(userProfile.toMap())
-                        //     .catchError((e) => print(e));
-                        //Navigator.pop(context);
-                      }
-                    },
+                  SizedBox(
+                    width: Dimension.width20,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
-                    child: const Text("delete"),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-                    },
-                  )
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          fixedSize:
+                              Size(Dimension.width70, Dimension.height35)),
+                      child: Text(
+                        "save",
+                        style: TextStyle(fontSize: Dimension.height16),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          var userProfile = UserProfileData(
+                              name: _nameControler.text,
+                              description: _descriptionControler.text,
+                              advance: 0,
+                              total: 0);
+                          var result = await checkUserName();
+                          if (result) {
+                            _showSnackBar(context, "user already exist");
+                          } else {
+                            final id = firebaseAuth.currentUser!.uid;
+                            CollectionReference user =
+                                FirebaseFirestore.instance.collection(id);
+                            user
+                                .add(userProfile.toMap())
+                                .then((value) =>
+                                    _showSnackBar(context, "User added"))
+                                .catchError((e) =>
+                                    _showSnackBar(context, e.toString()));
+                          }
+                          // CollectionReference reference =
+                          //     FirebaseFirestore.instance.collection('users');
+                          // QuerySnapshot querySnapshot = await reference.get();
+                          // final allData = querySnapshot.docs.map((doc) {
+                          //   return doc.data();
+                          // }).toList();
+                          // if (allData.contains(_nameControler.text)) {
+                          //   _showSnackBar(context, "user is already present");
+                          // }
+                          // StreamSubscription<DocumentSnapshot> subscription;
+                          // var reference = FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc();
+                          // subscription = reference.snapshots().listen((event) {
+                          //   if (event
+                          //       .data()!
+                          //       .containsValue(_nameControler.text)) {
+                          //     _showSnackBar(context, 'user already exist');
+                          //   } else {}
+                          // });
+
+                          _nameControler.clear();
+                          _descriptionControler.clear();
+
+                          // user
+                          //     .set(userProfile.toMap())
+                          //     .catchError((e) => print(e));
+                          //Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: Dimension.width20,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.black,
+                          fixedSize:
+                              Size(Dimension.width70, Dimension.height35)),
+                      child: Text(
+                        "delete",
+                        style: TextStyle(fontSize: Dimension.height16),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const AlertDialog(
+                                  title: Text("Inform"),
+                                  content: Text(
+                                      "This feature will be available soon"),
+                                );
+                              });
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: Dimension.width20,
+                  ),
                 ],
               )
             ])));
@@ -171,8 +217,9 @@ class UserProfile extends StatelessWidget {
 
   Future<bool> checkUserName() async {
     bool result = false;
+    final collectionId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
-        .collection('users')
+        .collection(collectionId)
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((element) {
