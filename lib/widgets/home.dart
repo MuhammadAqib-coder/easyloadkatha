@@ -8,17 +8,18 @@ import '../services/google_authentication.dart';
 import 'text_field.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
+  var provider = EmailAndPassword();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top: Dimension.height80),
-      child: ListView(
+      padding: EdgeInsets.only(top: Dimension.height80),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Field(
             callBack: (email, password, flag) {
-              var provider = Provider.of<EmailAndPassword>(context,listen: false);
               if (flag == 'signin') {
                 provider
                     .signIn(email, password)
@@ -34,20 +35,20 @@ class Home extends StatelessWidget {
               }
             },
           ),
-          ElevatedButton.icon(
-              onPressed: () {
-                var provider = Provider.of<Google>(context,listen: false);
-                provider.googleLogin();
-              },
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
-                  minimumSize:  Size(double.infinity, Dimension.height50)),
-              icon: const FaIcon(
-                FontAwesomeIcons.google,
-                color: Colors.red,
-              ),
-              label: const Text("Signin with Google"))
+          // ElevatedButton.icon(
+          //     onPressed: () {
+          //       var provider = Provider.of<Google>(context, listen: false);
+          //       provider.googleLogin();
+          //     },
+          //     style: ElevatedButton.styleFrom(
+          //         primary: Colors.white,
+          //         onPrimary: Colors.black,
+          //         minimumSize: Size(double.infinity, Dimension.height50)),
+          //     icon: const FaIcon(
+          //       FontAwesomeIcons.google,
+          //       color: Colors.red,
+          //     ),
+          //     label: const Text("Signin with Google"))
         ],
       ),
     );

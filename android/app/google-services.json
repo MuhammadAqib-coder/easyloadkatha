@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "1136703888",
-    "project_id": "practice-of-firebase-71f76",
-    "storage_bucket": "practice-of-firebase-71f76.appspot.com"
+    "project_number": "271363691020",
+    "project_id": "sra-qatra-a2c68",
+    "storage_bucket": "sra-qatra-a2c68.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1136703888:android:a003c25e471113b543db15",
+        "mobilesdk_app_id": "1:271363691020:android:e9f93e540880a3a274d429",
         "android_client_info": {
           "package_name": "com.example.practice_of_firebase"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1136703888-a0qsg0hmfjshkkf2gbucboa1k8qq7ndi.apps.googleusercontent.com",
+          "client_id": "271363691020-n7ah4mq5qm1frhphocaj049smi56lh1j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.practice_of_firebase",
@@ -22,21 +22,64 @@
           }
         },
         {
-          "client_id": "1136703888-rcegmjcs9b3r2adjthccla3kvgav3iqt.apps.googleusercontent.com",
+          "client_id": "271363691020-4gk41fnqbjmnl1qn659cbnrna5j7h8iu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDzmWb9uWN7ly_gAk0EpQCuP15YeNFrg5E"
+          "current_key": "AIzaSyDIDkurqYQtw_Ekw9zEh-wR5hyzWQRyojA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1136703888-rcegmjcs9b3r2adjthccla3kvgav3iqt.apps.googleusercontent.com",
+              "client_id": "271363691020-4gk41fnqbjmnl1qn659cbnrna5j7h8iu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "271363691020-bqq8s4o2hbb5j14qnemvumn6rtmfe41s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sraQatra"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271363691020:android:f563f7e8b24f08e574d429",
+        "android_client_info": {
+          "package_name": "com.example.sra_qatra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271363691020-4gk41fnqbjmnl1qn659cbnrna5j7h8iu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIDkurqYQtw_Ekw9zEh-wR5hyzWQRyojA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271363691020-4gk41fnqbjmnl1qn659cbnrna5j7h8iu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "271363691020-bqq8s4o2hbb5j14qnemvumn6rtmfe41s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sraQatra"
+              }
             }
           ]
         }

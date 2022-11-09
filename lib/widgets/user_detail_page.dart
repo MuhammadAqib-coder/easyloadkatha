@@ -35,6 +35,19 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
     collectionId = FirebaseAuth.instance.currentUser!.uid;
     reference = FirebaseFirestore.instance
         .collection('$collectionId/${widget.id}/${widget.snapshot['name']}');
+    // FirebaseFirestore.instance
+    //     .collection(collectionId)
+    //     .doc(widget.id)
+    //     .get()
+    //     .then((value) {
+    //   if (value.exists) {
+    //   } else {
+    //     FirebaseFirestore.instance
+    //         .collection(collectionId)
+    //         .doc(widget.id)
+    //         .set({'total': 0, 'advance': 0});
+    //   }
+    // });
     setState(() {});
   }
 
@@ -66,6 +79,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.09,
                         child: TextField(
+                          cursorColor: Colors.black,
                           keyboardType: TextInputType.number,
                           controller: _priceControler,
                           decoration: InputDecoration(
@@ -112,6 +126,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                         if (_priceControler.text.isNotEmpty) {
                           var price = int.parse(_priceControler.text.trim());
                           _priceControler.clear();
+                          var preTotal = total;
                           if (total > 0) {
                             total -= price;
                             if (total <= 0) {
@@ -127,8 +142,10 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                           }
                           var time = DateTime.now();
                           var date = DateFormat('dd-MM-yyyy').format(time);
-                          var data =
-                              PriceAndDate(price: price.toString(), date: date);
+                          var data = PriceAndDate(
+                              price:
+                                  "Total $preTotal, ${price.toString()} from customer",
+                              date: date);
                           reference!.add(data.toMap());
                         } else {
                           showDialog(
@@ -161,6 +178,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.09,
                           child: TextField(
+                            cursorColor: Colors.black,
                             // validator: (value) {
                             //   if (value!.isEmpty) {
                             //     return "please enter price";
@@ -270,7 +288,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   //return const Text("please wait");
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(color: Colors.black),
                   );
                 }
                 if (snapshot.hasData) {
@@ -292,11 +310,16 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                           subtitle: Text(snapshot.data!.docs[index]['date']),
                           trailing: IconButton(
                               onPressed: () async {
-                                await FirebaseFirestore.instance
-                                    .runTransaction((transaction) async {
-                                  transaction.delete(
-                                      snapshot.data!.docs[index].reference);
-                                });
+                                FirebaseFirestore.instance
+                                    .collection(
+                                        '$collectionId/${widget.id}/${widget.snapshot['name']}')
+                                    .doc(snapshot.data!.docs[index].id)
+                                    .delete();
+                                // await FirebaseFirestore.instance
+                                //     .runTransaction((transaction) async {
+                                //   transaction.delete(
+                                //       snapshot.data!.docs[index].reference);
+                                // });
                               },
                               icon: const Icon(Icons.delete)),
                         ),
@@ -320,7 +343,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                   RichText(
                       text: TextSpan(
                           style: const TextStyle(color: Colors.black),
-                          text: "Advance Rs ",
+                          text: "Advance dues ",
                           children: [
                         TextSpan(
                             text: "$advance",
@@ -331,7 +354,7 @@ class _UserDetailState extends State<UserDetail> with WidgetsBindingObserver {
                   RichText(
                       text: TextSpan(
                           style: const TextStyle(color: Colors.black),
-                          text: "Total Rs ",
+                          text: "Total dues ",
                           children: [
                         TextSpan(
                             text: "$total",

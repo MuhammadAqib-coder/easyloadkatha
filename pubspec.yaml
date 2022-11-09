@@ -27,17 +27,17 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  cloud_firestore: ^3.1.10
+  cloud_firestore: ^4.0.2
   cupertino_icons: ^1.0.2
-  draggable_fab: ^0.1.4
-  firebase_auth: ^3.3.11
-  firebase_core: ^1.13.1
+  # draggable_fab: ^0.1.4
+  firebase_auth: ^4.0.2
+  firebase_core: ^2.1.0
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.9.3
   flutter_native_splash: ^2.2.3
   font_awesome_flutter: ^10.0.0
-  google_sign_in: ^5.2.4
+  google_sign_in: ^5.4.2
   intl: ^0.17.0
   path_provider: ^2.0.9
   provider: ^6.0.2
@@ -49,11 +49,11 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assest/truth.png"
+  image_path: "assest/easyload5.png"
 flutter_native_splash:
-  background_image: "assest/truth.png"
+  background_image: "assest/easyload5.png"
   android: true
-  ios: true  
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -64,8 +64,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assest/google.png
-    - assest/truth.png
+    - assest/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

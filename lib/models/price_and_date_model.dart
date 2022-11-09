@@ -7,7 +7,7 @@ class PriceAndDate {
   String get getDate => date;
 
   Map<String, dynamic> toMap() {
-    var map = {'price': price, 'date': date};
+    var map = {'price': price, 'date': date,};
     return map;
   }
 }

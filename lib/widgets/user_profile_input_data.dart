@@ -30,11 +30,15 @@ class UserProfile extends StatelessWidget {
             key: _formKey,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                height: Dimension.height30,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimension.width20,
                     vertical: Dimension.height10),
                 child: TextFormField(
+                  cursorColor: Colors.black,
                   controller: _nameControler,
                   decoration: InputDecoration(
                       fillColor: Colors.grey.withOpacity(0.5),
@@ -71,6 +75,7 @@ class UserProfile extends StatelessWidget {
                     horizontal: Dimension.width20,
                     vertical: Dimension.height10),
                 child: TextFormField(
+                  cursorColor: Colors.black,
                   controller: _descriptionControler,
                   decoration: InputDecoration(
                       fillColor: Colors.grey.withOpacity(0.5),
@@ -106,105 +111,103 @@ class UserProfile extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: Dimension.width20,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          fixedSize:
-                              Size(Dimension.width70, Dimension.height35)),
-                      child: Text(
-                        "save",
-                        style: TextStyle(fontSize: Dimension.height16),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          var userProfile = UserProfileData(
-                              name: _nameControler.text,
-                              description: _descriptionControler.text,
-                              advance: 0,
-                              total: 0);
-                          var result = await checkUserName();
-                          if (result) {
-                            _showSnackBar(context, "user already exist");
-                          } else {
-                            final id = firebaseAuth.currentUser!.uid;
-                            CollectionReference user =
-                                FirebaseFirestore.instance.collection(id);
-                            user
-                                .add(userProfile.toMap())
-                                .then((value) =>
-                                    _showSnackBar(context, "User added"))
-                                .catchError((e) =>
-                                    _showSnackBar(context, e.toString()));
-                          }
-                          // CollectionReference reference =
-                          //     FirebaseFirestore.instance.collection('users');
-                          // QuerySnapshot querySnapshot = await reference.get();
-                          // final allData = querySnapshot.docs.map((doc) {
-                          //   return doc.data();
-                          // }).toList();
-                          // if (allData.contains(_nameControler.text)) {
-                          //   _showSnackBar(context, "user is already present");
-                          // }
-                          // StreamSubscription<DocumentSnapshot> subscription;
-                          // var reference = FirebaseFirestore.instance
-                          //     .collection('users')
-                          //     .doc();
-                          // subscription = reference.snapshots().listen((event) {
-                          //   if (event
-                          //       .data()!
-                          //       .containsValue(_nameControler.text)) {
-                          //     _showSnackBar(context, 'user already exist');
-                          //   } else {}
-                          // });
-
-                          _nameControler.clear();
-                          _descriptionControler.clear();
-
-                          // user
-                          //     .set(userProfile.toMap())
-                          //     .catchError((e) => print(e));
-                          //Navigator.pop(context);
-                        }
-                      },
+                  // SizedBox(
+                  //   width: Dimension.width20,
+                  // ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        fixedSize: Size(Dimension.width70, Dimension.height35)),
+                    child: Text(
+                      "save",
+                      style: TextStyle(fontSize: Dimension.height16),
                     ),
-                  ),
-                  SizedBox(
-                    width: Dimension.width20,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          fixedSize:
-                              Size(Dimension.width70, Dimension.height35)),
-                      child: Text(
-                        "delete",
-                        style: TextStyle(fontSize: Dimension.height16),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const AlertDialog(
-                                  title: Text("Inform"),
-                                  content: Text(
-                                      "This feature will be available soon"),
-                                );
-                              });
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        var userProfile = UserProfileData(
+                            name: _nameControler.text,
+                            description: _descriptionControler.text,
+                            advance: 0,
+                            total: 0);
+                        var result = await checkUserName();
+                        if (result) {
+                          _showSnackBar(context, "user already exist");
+                        } else {
+                          final id = firebaseAuth.currentUser!.uid;
+
+                          CollectionReference user =
+                              FirebaseFirestore.instance.collection(id);
+                          user
+                              .doc().set(userProfile.toMap())
+                              .then((value) =>
+                                  _showSnackBar(context, "User added"))
+                              .catchError(
+                                  (e) => _showSnackBar(context, e.toString()));
                         }
-                      },
-                    ),
+                        // CollectionReference reference =
+                        //     FirebaseFirestore.instance.collection('users');
+                        // QuerySnapshot querySnapshot = await reference.get();
+                        // final allData = querySnapshot.docs.map((doc) {
+                        //   return doc.data();
+                        // }).toList();
+                        // if (allData.contains(_nameControler.text)) {
+                        //   _showSnackBar(context, "user is already present");
+                        // }
+                        // StreamSubscription<DocumentSnapshot> subscription;
+                        // var reference = FirebaseFirestore.instance
+                        //     .collection('users')
+                        //     .doc();
+                        // subscription = reference.snapshots().listen((event) {
+                        //   if (event
+                        //       .data()!
+                        //       .containsValue(_nameControler.text)) {
+                        //     _showSnackBar(context, 'user already exist');
+                        //   } else {}
+                        // });
+
+                        _nameControler.clear();
+                        _descriptionControler.clear();
+
+                        // user
+                        //     .set(userProfile.toMap())
+                        //     .catchError((e) => print(e));
+                        //Navigator.pop(context);
+                      }
+                    },
                   ),
-                  SizedBox(
-                    width: Dimension.width20,
-                  ),
+                  // SizedBox(
+                  //   width: Dimension.width20,
+                  // ),
+                  // Expanded(
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //         primary: Colors.black,
+                  //         fixedSize:
+                  //             Size(Dimension.width70, Dimension.height35)),
+                  //     child: Text(
+                  //       "delete",
+                  //       style: TextStyle(fontSize: Dimension.height16),
+                  //     ),
+                  //     onPressed: () {
+                  //       if (_formKey.currentState!.validate()) {
+                  //         showDialog(
+                  //             context: context,
+                  //             builder: (context) {
+                  //               return const AlertDialog(
+                  //                 title: Text("Inform"),
+                  //                 content: Text(
+                  //                     "This feature will be available soon"),
+                  //               );
+                  //             });
+                  //       }
+                  //     },
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: Dimension.width20,
+                  // ),
                 ],
               )
             ])));
@@ -222,11 +225,11 @@ class UserProfile extends StatelessWidget {
         .collection(collectionId)
         .get()
         .then((querySnapshot) {
-      querySnapshot.docs.forEach((element) {
+      for (var element in querySnapshot.docs) {
         if (element['name'] == _nameControler.text) {
           result = true;
         }
-      });
+      }
     });
     return result;
   }

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:draggable_fab/draggable_fab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practice_of_firebase/services/dimension.dart';
 import 'package:practice_of_firebase/widgets/user_profile_input_data.dart';
 
-import '../services/search_data.dart';
 import 'user_detail_page.dart';
 
 class LoggedInPage extends StatefulWidget {
@@ -48,11 +46,11 @@ class _LoggedInPageState extends State<LoggedInPage> {
                   FirebaseAuth.instance.signOut();
                 },
                 icon: const Icon(Icons.logout)),
-            IconButton(
-                onPressed: () {
-                  showSearch(context: context, delegate: SearchData());
-                },
-                icon: const Icon(Icons.search))
+            // IconButton(
+            //     onPressed: () {
+            //       showSearch(context: context, delegate: SearchData());
+            //     },
+            //     icon: const Icon(Icons.search))
           ]),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -103,10 +101,14 @@ class _LoggedInPageState extends State<LoggedInPage> {
                                         primary: Colors.black),
                                     onPressed: () async {
                                       await FirebaseFirestore.instance
-                                          .runTransaction((transaction) async {
-                                        transaction.delete(snapshot
-                                            .data!.docs[index].reference);
-                                      });
+                                          .collection(FirebaseAuth
+                                              .instance.currentUser!.uid)
+                                          .doc(snapshot.data!.docs[index].id).delete();
+                                      // await FirebaseFirestore.instance
+                                      //     .runTransaction((transaction) async {
+                                      //   transaction.delete(snapshot
+                                      //       .data!.docs[index].reference);
+                                      // });
                                       Navigator.pop(context);
                                     },
                                     child: const Text("Ok")),
@@ -173,21 +175,19 @@ class _LoggedInPageState extends State<LoggedInPage> {
       //         },
       //       );
       //     }),
-      floatingActionButton: DraggableFab(
-        child: FloatingActionButton.extended(
-          backgroundColor: Colors.black.withOpacity(0.8),
-          //backgroundColor: const Color.fromARGB(255, 54, 224, 247),
-          label: const Text(
-            "Add Customer",
-          ),
-          icon: const Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => UserProfile()));
-          },
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.black.withOpacity(0.8),
+        //backgroundColor: const Color.fromARGB(255, 54, 224, 247),
+        label: const Text(
+          "Add Customer",
         ),
+        icon: const Icon(
+          Icons.add,
+        ),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => UserProfile()));
+        },
       ),
     );
   }

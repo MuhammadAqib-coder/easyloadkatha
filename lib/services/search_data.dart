@@ -48,10 +48,11 @@ class SearchData extends SearchDelegate<String> {
         if (snapshot.hasData) {
           final result = snapshot.data!.docs
               .where((DocumentSnapshot a) => a['name'].contains(query));
+          debugPrint(result.toString());
           var list = result
               .map((DocumentSnapshot e) => UserProfileData(
                   name: e['name'],
-                  description: e['description'],
+                  description: e.get('description'),
                   advance: e['advance'],
                   total: e['total']))
               .toList();

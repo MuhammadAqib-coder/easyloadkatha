@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-class EmailAndPassword  extends ChangeNotifier{
+class EmailAndPassword  {
   Future<String> signIn(String email, String password) async {
     try {
       await FirebaseAuth.instance
@@ -21,7 +21,7 @@ class EmailAndPassword  extends ChangeNotifier{
   Future<String> createUser(String email, String password) async {
     try {
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password,);
      // await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
       return 'signed up';
     } on FirebaseAuthException catch (e) {
@@ -38,7 +38,7 @@ class EmailAndPassword  extends ChangeNotifier{
   Future<String> resetPassword(String email) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      return 'email send';
+      return 'check your email inbox';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         return 'invalid email';
